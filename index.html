@@ -1,83 +1,85 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#101513" />
-  <title>Frostbound — Ashes of the North</title>
+  <link rel="icon" href="data:," />
+  <meta name="description" content="Cinzas do Norte — uma aventura de fantasia sombria com combate soulslike." />
+  <title>Cinzas do Norte — A Última Vigília</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main id="game-shell">
-    <canvas id="game" aria-label="Frostbound action RPG game"></canvas>
-    <div class="vignette"></div>
+    <canvas id="game" aria-label="Jogo de aventura e combate nas terras geladas do norte"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
     <header class="topbar">
-      <div class="brand"><span class="brand-mark">✦</span><span>FROSTBOUND</span></div>
-      <div class="region"><span class="region-line"></span><span id="region-name">THE FORGOTTEN REACH</span><span class="region-line"></span></div>
-      <button id="sound-btn" class="icon-btn" aria-label="Toggle sound">♫ <span>SOUND</span></button>
+      <div class="brand"><span class="brand-mark">✦</span><span>CINZAS DO NORTE</span></div>
+      <div class="region"><span class="region-line"></span><span id="region-name">DESFILADEIRO DA ÚLTIMA VIGÍLIA</span><span class="region-line"></span></div>
+      <button id="sound-btn" class="icon-btn" aria-label="Ativar ou desativar som">♫ <span>SOM</span></button>
     </header>
-    <section class="hud" id="hud" aria-label="Player status">
+    <section class="hud" id="hud" aria-label="Status do personagem">
       <div class="status-left">
         <div class="portrait-wrap"><div class="portrait">ᛟ</div><div class="level-badge" id="level-badge">1</div></div>
         <div class="bars">
           <div class="bar-row health-row"><span class="bar-icon">♥</span><div class="bar-track"><div id="health-fill" class="bar-fill health-fill"></div><span id="health-text" class="bar-text">120 / 120</span></div></div>
           <div class="bar-row stamina-row"><span class="bar-icon">◆</span><div class="bar-track"><div id="stamina-fill" class="bar-fill stamina-fill"></div><span id="stamina-text" class="bar-text">100 / 100</span></div></div>
-          <div class="bar-row xp-row"><span class="bar-icon">✧</span><div class="bar-track"><div id="xp-fill" class="bar-fill xp-fill"></div></div></div>
-          <div class="class-line"><span id="class-name">WANDERER</span><span class="dot">·</span><span id="souls-count">0 SHARDS</span></div>
+          <div class="bar-row xp-row"><span class="bar-icon">✧</span><div class="bar-track"><div id="xp-fill" class="bar-fill xp-fill"></div><span id="xp-text" class="bar-text">0 / 3</span></div></div>
+          <div class="class-line"><span id="class-name">VIAJANTE</span><span class="dot">·</span><span id="souls-count">0 ALMAS</span></div>
         </div>
       </div>
-      <div class="objective" id="objective"><div class="objective-kicker"><span class="quest-diamond">◇</span> THE OLD OATH</div><div id="objective-text">Follow the old road north</div><div class="objective-distance" id="objective-distance">A presence stirs in the pass</div></div>
+      <div class="objective" id="objective"><div class="objective-kicker"><span class="quest-diamond">◇</span> A ÚLTIMA VIGÍLIA</div><div id="objective-text">Encontre a chama azul no caminho antigo</div><div class="objective-distance" id="objective-distance">Uma presença desperta nas ruínas...</div></div>
     </section>
-    <div id="target-ui" class="target-ui"><div class="target-name" id="target-name">FROSTBOUND SENTINEL</div><div class="target-track"><div id="target-fill"></div></div></div>
-    <div id="toast" class="toast"></div>
-    <div id="interact-prompt" class="interact-prompt"><kbd>E</kbd> <span>REST AT SHRINE</span></div>
+    <div id="target-ui" class="target-ui"><div class="target-name" id="target-name">GUARDIÃO DO SEPULCRO</div><div class="target-track"><div id="target-fill"></div></div></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="interact-prompt" class="interact-prompt"><kbd>E</kbd> <span>ACENDER SANTUÁRIO</span></div>
     <div class="bottom-hud" id="bottom-hud">
-      <div class="quick-items"><div class="quick-slot flask-slot"><div class="slot-key">Q</div><span class="flask-icon">◒</span><span id="flask-count">3</span></div><div class="quick-label">EMBER VIAL</div></div>
-      <div class="combat-hints"><span><kbd>J</kbd> ATTACK</span><span><kbd>⇧</kbd> HEAVY</span><span><kbd>SPACE</kbd> DODGE</span><span><kbd>K</kbd> GUARD</span><span><kbd>TAB</kbd> LOCK</span></div>
-      <div class="weapon-label"><span class="weapon-glyph">╱</span><span>IRON LONGSWORD<br><small id="weapon-sub">WELL-WORN · +0</small></span></div>
+      <button id="flask-btn" class="quick-items" aria-label="Usar frasco de cura"><span class="flask-slot"><span class="slot-key">Q</span><span class="flask-icon">◒</span><span id="flask-count">3</span></span><span class="quick-label">FRASCO DE BRASA</span></button>
+      <div class="combat-hints"><span><kbd>J</kbd> GOLPE</span><span><kbd>SHIFT</kbd> PESADO</span><span><kbd>ESPAÇO</kbd> ROLAR</span><span><kbd>K</kbd> DEFENDER</span><span><kbd>TAB</kbd> MIRAR</span></div>
+      <div class="weapon-label"><span class="weapon-glyph">╱</span><span>ESPADA DE FERRO<br><small id="weapon-sub">GASTA · +0</small></span></div>
     </div>
-    <div class="touch-controls" id="touch-controls">
+    <div class="touch-controls" id="touch-controls" aria-label="Controles de toque">
       <div id="stick-zone" class="stick-zone"><div id="stick-knob" class="stick-knob"></div></div>
-      <div class="touch-actions"><button data-action="dodge" class="touch-action dodge-action">↗</button><button data-action="attack" class="touch-action attack-action">⚔</button><button data-action="guard" class="touch-action guard-action">◈</button></div>
+      <div class="touch-actions"><button data-action="dodge" class="touch-action dodge-action" aria-label="Rolar">↗</button><button data-action="attack" class="touch-action attack-action" aria-label="Atacar">⚔</button><button data-action="heavy" class="touch-action heavy-action" aria-label="Ataque pesado">✦</button><button data-action="guard" class="touch-action guard-action" aria-label="Defender">◈</button></div>
     </div>
     <div id="overlay" class="overlay">
       <div class="overlay-backdrop"></div>
       <div class="panel title-panel" id="title-panel">
-        <div class="eyebrow"><span></span> A NORTHERN DARK FANTASY <span></span></div>
-        <h1>FROST<span>BOUND</span></h1>
-        <div class="title-rule"><i></i> ASHES OF THE NORTH <i></i></div>
-        <p class="intro-copy">The old gods are silent. The dead have begun to walk.<br>Take up the oathsteel and decide what survives the thaw.</p>
-        <button id="begin-btn" class="primary-btn">BEGIN YOUR OATH <span>→</span></button>
-        <div class="title-controls"><span>WASD <b>MOVE</b></span><i></i><span>J <b>STRIKE</b></span><i></i><span>SPACE <b>ROLL</b></span><i></i><span>TAB <b>LOCK ON</b></span></div>
-        <div class="title-foot">A SOULS-INSPIRED ACTION RPG <span>·</span> YOUR STORY, YOUR ASCENSION</div>
+        <div class="eyebrow"><span></span> UMA FANTASIA SOMBRIA DO NORTE <span></span></div>
+        <h1>CINZAS <span>DO NORTE</span></h1>
+        <div class="title-rule"><i></i> A ÚLTIMA VIGÍLIA <i></i></div>
+        <p class="intro-copy">O inverno não termina. Os túmulos se abriram.<br>Erga sua espada e atravesse o desfiladeiro.</p>
+        <button id="begin-btn" class="primary-btn">INICIAR JORNADA <span>→</span></button>
+        <div class="title-controls"><span>WASD <b>MOVER</b></span><i></i><span>J <b>ATACAR</b></span><i></i><span>ESPAÇO <b>ROLAR</b></span><i></i><span>TAB <b>TRAVAR ALVO</b></span></div>
+        <div class="title-foot">AVENTURA DE FANTASIA · COMBATE INSPIRADO EM SOULSLIKES</div>
       </div>
       <div class="panel pause-panel hidden" id="pause-panel">
-        <div class="eyebrow"><span></span> THE WORLD HOLDS ITS BREATH <span></span></div><h2>PAUSED</h2><p>Rest a moment, oathbearer.</p><button id="resume-btn" class="primary-btn">RETURN TO THE REACH <span>→</span></button><div class="pause-note">ESC TO RESUME</div>
+        <div class="eyebrow"><span></span> O MUNDO PRENDE A RESPIRAÇÃO <span></span></div><h2>PAUSADO</h2><p>Descanse, viajante.</p><button id="resume-btn" class="primary-btn">VOLTAR À JORNADA <span>→</span></button><div class="pause-note">ESC PARA VOLTAR</div>
       </div>
       <div class="panel shrine-panel hidden" id="shrine-panel">
-        <div class="eyebrow"><span></span> A MOMENT OF QUIET <span></span></div><h2>WAYSHRINE</h2><p class="shrine-copy">The blue flame remembers your name.<br>Rest, recover, and shape the warrior you will become.</p>
+        <div class="eyebrow"><span></span> UM INSTANTE DE PAZ <span></span></div><h2>SANTUÁRIO</h2><p class="shrine-copy">A chama azul guarda seu nome.<br>Descanse e fortaleça quem você está se tornando.</p>
         <div class="shrine-stats" id="shrine-stats"></div>
         <div class="upgrade-list">
-          <button class="upgrade-card" data-upgrade="vitality"><span class="upgrade-icon">♥</span><span><b>HARDENED HEART</b><small>Increase maximum health by 25</small></span><em>1 POINT</em></button>
-          <button class="upgrade-card" data-upgrade="endurance"><span class="upgrade-icon">◆</span><span><b>DEEPER RESERVE</b><small>Increase maximum stamina by 20</small></span><em>1 POINT</em></button>
-          <button class="upgrade-card" data-upgrade="edge"><span class="upgrade-icon">⚔</span><span><b>SHARPENED EDGE</b><small>Deal 15% more weapon damage</small></span><em>1 POINT</em></button>
+          <button class="upgrade-card" data-upgrade="vitality"><span class="upgrade-icon">♥</span><span><b>CORAÇÃO RESISTENTE</b><small>Aumenta a vida máxima em 25</small></span><em>1 ALMA</em></button>
+          <button class="upgrade-card" data-upgrade="endurance"><span class="upgrade-icon">◆</span><span><b>FÔLEGO PROFUNDO</b><small>Aumenta o vigor máximo em 20</small></span><em>1 ALMA</em></button>
+          <button class="upgrade-card" data-upgrade="edge"><span class="upgrade-icon">⚔</span><span><b>FIO AFIADO</b><small>Aumenta o dano da arma em 15%</small></span><em>1 ALMA</em></button>
         </div>
-        <button id="rest-btn" class="secondary-btn">REST & REFILL VIALS <span>✦</span></button><button id="leave-shrine" class="text-btn">LEAVE SHRINE <span>ESC</span></button>
+        <button id="rest-btn" class="secondary-btn">DESCANSAR E REABASTECER <span>✦</span></button><button id="leave-shrine" class="text-btn">SAIR DO SANTUÁRIO <span>ESC</span></button>
       </div>
       <div class="panel evolve-panel hidden" id="evolve-panel">
-        <div class="eyebrow"><span></span> YOUR PATH TAKES SHAPE <span></span></div><h2>CHOOSE YOUR ASCENSION</h2><p>Reach level 3 to evolve again. Your path cannot be undone.</p>
+        <div class="eyebrow"><span></span> SEU CAMINHO TOMA FORMA <span></span></div><h2>ESCOLHA SUA ASCENSÃO</h2><p>Alcance o nível 3 para crescer novamente. Sua escolha é permanente.</p>
         <div class="class-options">
-          <button class="class-card" data-class="Warden"><span class="class-icon">⛨</span><b>THE WARDEN</b><small>Unyielding bulwark</small><span class="class-perk">+40 health · +20% guard strength</span></button>
-          <button class="class-card" data-class="Spellblade"><span class="class-icon">✧</span><b>THE SPELLBLADE</b><small>Steel bound to sorcery</small><span class="class-perk">+15% damage · ember burst</span></button>
-          <button class="class-card" data-class="Ranger"><span class="class-icon">➶</span><b>THE RANGER</b><small>Ghost on the old road</small><span class="class-perk">+25% roll distance · +15% damage</span></button>
+          <button class="class-card" data-class="Sentinela"><span class="class-icon">⛨</span><b>A SENTINELA</b><small>Muralha inabalável</small><span class="class-perk">+40 vida · defesa reforçada</span></button>
+          <button class="class-card" data-class="LÂMINA ARCANA"><span class="class-icon">✧</span><b>LÂMINA ARCANA</b><small>Aço ligado à magia</small><span class="class-perk">+20% dano · explosão ígnea</span></button>
+          <button class="class-card" data-class="Andarilho"><span class="class-icon">➶</span><b>O ANDARILHO</b><small>Fantasma da estrada</small><span class="class-perk">Rolagem veloz · +15% dano</span></button>
         </div>
-        <button id="close-evolve" class="text-btn">DECIDE LATER <span>ESC</span></button>
+        <button id="close-evolve" class="text-btn">DECIDIR DEPOIS <span>ESC</span></button>
       </div>
-      <div class="panel death-panel hidden" id="death-panel"><div class="eyebrow"><span></span> YOUR EMBERS FADE <span></span></div><h2>FELL IN THE REACH</h2><p>You lost some of your carried shards.<br>The wayshrine still remembers you.</p><button id="respawn-btn" class="primary-btn">RISE AGAIN <span>→</span></button><div class="pause-note">YOUR ROAD IS NOT OVER</div></div>
-      <div class="panel victory-panel hidden" id="victory-panel"><div class="eyebrow"><span></span> THE OLD OATH FULFILLED <span></span></div><h2>DAWN RETURNS</h2><p>The Warden's silence has broken.<br>Across the Reach, the dead finally sleep.</p><button id="continue-btn" class="primary-btn">KEEP EXPLORING <span>→</span></button><div class="pause-note">THE NORTH REMEMBERS</div></div>
+      <div class="panel death-panel hidden" id="death-panel"><div class="eyebrow"><span></span> SUAS BRASAS SE APAGAM <span></span></div><h2>CAÍSTE NO DESFILADEIRO</h2><p>Você perdeu parte das almas carregadas.<br>O santuário ainda se lembra de você.</p><button id="respawn-btn" class="primary-btn">ERGUER-SE <span>→</span></button><div class="pause-note">SUA JORNADA NÃO TERMINOU</div></div>
+      <div class="panel victory-panel hidden" id="victory-panel"><div class="eyebrow"><span></span> A ÚLTIMA VIGÍLIA CUMPRIDA <span></span></div><h2>AURORA RETORNA</h2><p>O silêncio do guardião se rompeu.<br>Nas terras do norte, os mortos enfim repousam.</p><button id="continue-btn" class="primary-btn">CONTINUAR EXPLORANDO <span>→</span></button><div class="pause-note">O NORTE SE LEMBRARÁ</div></div>
     </div>
   </main>
   <script src="game.js"></script>
