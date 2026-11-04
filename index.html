@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#100f10" />
+    <link rel="icon" href="data:," />
+    <meta name="description" content="Atravesse as cinzas e encontre abrigo sob os grandes muros de Vale Sombrio." />
+    <title>As Cinzas de Vale Sombrio</title>
+  </head>
+  <body>
+    <div id="game"></div>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✦</span><span>VALE <i>SOMBRIO</i></span></div>
+      <div class="top-note"><span class="live-dot"></span> CAPÍTULO I &nbsp;·&nbsp; A ÚLTIMA ESTRADA</div>
+      <button class="sound-button" id="sound-toggle" aria-label="Ativar ou desativar som">♫ <span>SOM</span></button>
+    </header>
+    <section class="quest-card">
+      <div class="quest-kicker"><span>MISSÃO ATUAL</span><span class="quest-dot"></span></div>
+      <h1>O abrigo<br/>das muralhas</h1>
+      <p>Encontre segurança dentro dos muros de Vale Sombrio.</p>
+      <div class="quest-progress"><span id="distance-label">A ESTRADA ADIANTE</span><span id="distance-value">—</span></div>
+      <div class="progress-track"><span id="quest-progress"></span></div>
+    </section>
+    <section class="status-panel">
+      <div class="status-heading"><span>PORTADOR DAS CINZAS</span><span class="status-level">NÍVEL 08</span></div>
+      <div class="meter-row"><span class="meter-icon health-icon">✦</span><div class="meter"><div class="meter-fill health-fill" id="health-fill"></div></div><span class="meter-value" id="health-value">100</span></div>
+      <div class="meter-row"><span class="meter-icon stamina-icon">ϟ</span><div class="meter"><div class="meter-fill stamina-fill" id="stamina-fill"></div></div><span class="meter-value" id="stamina-value">100</span></div>
+      <div class="meter-row"><span class="meter-icon mana-icon">◈</span><div class="meter"><div class="meter-fill mana-fill" id="mana-fill"></div></div><span class="meter-value" id="mana-value">60</span></div>
+    </section>
+    <div class="location"><span class="location-symbol">⌖</span><span id="location-name">ESTRADA DOS CAÍDOS</span><span class="location-line"></span><span class="location-coords" id="world-coords">—</span></div>
+    <div class="center-message" id="center-message"><span class="message-rule"></span><span id="message-copy"></span><span class="message-rule"></span></div>
+    <div class="combat-flash" id="combat-flash"></div>
+    <div class="boss-warning" id="boss-warning"><span>☠</span> OS MORTOS CAMINHAM</div>
+    <div class="fire-hint" id="fire-hint">✦ &nbsp;O fogo ainda arde no inimigo</div>
+    <div class="controls-hint" id="controls-hint"><span>W A S D</span> mover <b>·</b> <span>ESPAÇO</span> esquivar <b>·</b> <span>CLIQUE</span> atacar <b>·</b> <span>F</span> fogo</div>
+    <div class="target-label" id="target-label">ALVO FIXADO</div>
+    <div class="toast" id="toast"></div>
+    <section class="intro" id="intro">
+      <div class="intro-content">
+        <div class="intro-emblem">✦</div>
+        <span class="intro-overline">UMA JORNADA NAS CINZAS</span>
+        <h2>As Cinzas de<br/><i>Vale Sombrio</i></h2>
+        <p>O último refúgio ainda resiste. Atravesse a estrada dos caídos e busque abrigo atrás das antigas muralhas.</p>
+        <button id="begin-button" class="begin-button">INICIAR JORNADA <span>→</span></button>
+        <div class="intro-foot">WASD mover &nbsp;·&nbsp; Espaço esquivar &nbsp;·&nbsp; Clique atacar &nbsp;·&nbsp; F lançar fogo</div>
+      </div>
+      <div class="intro-side"><span>01</span><i></i><span>VALE SOMBRIO</span></div>
+    </section>
+    <section class="ending hidden" id="ending">
+      <div class="ending-content"><div class="intro-emblem">✦</div><span class="intro-overline">UM REFÚGIO ENTRE AS CINZAS</span><h2>As muralhas<br/><i>permanecem.</i></h2><p>Por ora, você está a salvo. Mas a estrada ainda guarda seus segredos.</p><button id="continue-button" class="begin-button">RECOMEÇAR A JORNADA <span>↻</span></button></div>
+    </section>
+    <div class="touch-controls" id="touch-controls">
+      <div class="touch-pad"><button data-move="forward">▲</button><div><button data-move="left">◀</button><button data-move="back">▼</button><button data-move="right">▶</button></div></div>
+      <div class="touch-actions"><button data-action="dodge" class="touch-dodge">ESQUIVA</button><button data-action="attack" class="touch-attack">⚔</button><button data-action="fire" class="touch-fire">✦</button></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
